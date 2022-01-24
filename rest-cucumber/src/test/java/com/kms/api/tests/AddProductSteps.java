@@ -20,7 +20,6 @@ public class AddProductSteps extends TestBase {
   private Object requestPayload;
   private LaptopBag reqAddLaptop;
   private LaptopBag resAddLaptop;
-  private int id;
   private Response res;
 
   @Given("^the path \"([^\"]*)\" to the endpoint$")
@@ -52,6 +51,6 @@ public class AddProductSteps extends TestBase {
 
   @And("^the product is added successfully with an integer Id$")
   public void theProductIsAddedSuccessfullyWithAnIntegerId() {
-    ValidationUtil.validateStringEqual(resAddLaptop.getId(), id);
+    ValidationUtil.validateStringEqual(id, resAddLaptop.getId());
   }
 }

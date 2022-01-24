@@ -37,7 +37,7 @@ public class RestClient extends TestBase {
   }
 
   /**
-   * Perform Post request with params and no request payload
+   * Perform Post request with request payload
    *
    * @param requestPath the endpoint
    * @param contentType list of params
@@ -62,7 +62,7 @@ public class RestClient extends TestBase {
   }
 
   /**
-   * Perform Put request with params and no request payload
+   * Perform Put request with request payload
    *
    * @param requestPath the endpoint
    * @param contentType list of params
@@ -70,16 +70,44 @@ public class RestClient extends TestBase {
    */
   public static Response doPutRequestWithPayload(
       String requestPath, ContentType contentType, Object body) {
-    return null;
+    return given()
+            .log()
+            .everything()
+            .contentType(contentType)
+            .with()
+            .accept(contentType)
+            .body(body)
+            .when()
+            .put(requestPath)
+            .then()
+            .log()
+            .all()
+            .extract()
+            .response();
   }
 
   /**
    * Perform Delete request with params and headers
    *
    * @param requestPath the endpoint
+   * @param productId id of the product
    * @return the response of the Delete request
    */
-  public static Response doDeleteRequestWithParams(String requestPath) {
-    return null;
+  public static Response doDeleteRequestWithParams(String requestPath, ContentType contentType, String productId) {
+    Map<String, String> params = Map.of("id" , productId);
+    return given()
+            .pathParams(params)
+            .log()
+            .everything()
+            .contentType(contentType)
+            .with()
+            .accept(contentType)
+            .when()
+            .delete(requestPath)
+            .then()
+            .log()
+            .all()
+            .extract()
+            .response();
   }
 }
